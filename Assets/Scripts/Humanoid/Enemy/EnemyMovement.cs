@@ -1,45 +1,32 @@
 using System.Collections;
 using UnityEngine;
-public enum SpinMode
+public class EnemyMovement : MonoBehaviour
 {
-    Spinning = 1,
-    NotSpinning = 0
-}
-public class PlayerMovement : MonoBehaviour
-{
-    [Header("Body/Komponenty")] 
+    [Header("Body/Komponenty")]
     [SerializeField] private GameObject body;
     [SerializeField] private Rigidbody rb;
     [Header("Vlastnosti")]
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float degreesPerSec = 360f;
-    [SerializeField] private float power = 0f;
-    [SerializeField] private float maxPower = 2f;
-    [SerializeField] private float powerGainMultiplier = 1f;
+    [SerializeField] private float power = 1f;
+    [SerializeField] private float timer = 2f;
+    [SerializeField] private float maxTimer = 2f;
+    [SerializeField] private float timerGainMultiplier = 1f;
+    [Header("Cíl")]
+    [SerializeField] private GameObject player;
     private SpinMode spinMode = SpinMode.NotSpinning;
     public SpinMode SpinMode { get { return spinMode; } }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && spinMode == SpinMode.NotSpinning)
-        {
-            power += Time.deltaTime * powerGainMultiplier;
+        timer -= Time.deltaTime * timerGainMultiplier;
 
-            if (power > maxPower)
-            {
-                power = maxPower;
-            }
-        }
-        else
-        {
-            if (power > 0f && spinMode == SpinMode.NotSpinning)
-            {
-                var screenPos = Input.mousePosition;
-                screenPos.z = 12;
-                Vector3 direction = (new Vector3(Camera.main.ScreenToWorldPoint(screenPos).x, 0, Camera.main.ScreenToWorldPoint(screenPos).z) - rb.position).normalized;
-                StartCoroutine(SpinAndMove(degreesPerSec, power, direction));
-                power = 0f;
-            }
-        }
+       if (timer <= 0f)
+       {
+            Vector3 playerPos = player.transform.position;
+            Vector3 direction = (new Vector3(playerPos.x, 0, playerPos.z) - rb.position).normalized;
+            StartCoroutine(SpinAndMove(degreesPerSec, power, direction));
+            timer = maxTimer;
+       }
     }
     public bool IsSpinning()
     {
