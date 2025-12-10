@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IMovement
 {
     [Header("Body/Komponenty")]
     [SerializeField] private GameObject body;
@@ -13,16 +13,20 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float maxTimer = 2f;
     [SerializeField] private float timerGainMultiplier = 1f;
     [Header("Cíl")]
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject target;
     private SpinMode spinMode = SpinMode.NotSpinning;
     public SpinMode SpinMode { get { return spinMode; } }
+    public GameObject Target { get { return target; } }
     private void Update()
     {
+        if (target == null)
+            return;
+
         timer -= Time.deltaTime * timerGainMultiplier;
 
        if (timer <= 0f)
        {
-            Vector3 playerPos = player.transform.position;
+            Vector3 playerPos = target.transform.position;
             Vector3 direction = (new Vector3(playerPos.x, 0, playerPos.z) - rb.position).normalized;
             StartCoroutine(SpinAndMove(degreesPerSec, power, direction));
             timer = maxTimer;

@@ -5,7 +5,7 @@ public enum SpinMode
     Spinning = 1,
     NotSpinning = 0
 }
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IMovement
 {
     [Header("Body/Komponenty")] 
     [SerializeField] private GameObject body;
