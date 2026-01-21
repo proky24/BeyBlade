@@ -4,7 +4,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private Transform target;
     [SerializeField]
-    private new Camera camera;
+    private Transform cameraContainer;
     [SerializeField]
     private Vector3 offset;
     private Vector3 size;
@@ -23,8 +23,8 @@ public class CameraMovement : MonoBehaviour
         newPos.y = CheckBounds(target.position.y, size.y / 2, transform.position.y, offset.y);
         newPos.z = CheckBounds(target.position.z, size.z / 2, transform.position.z, offset.z);
 
-        camera.transform.LookAt(target);
-        camera.transform.position = newPos;
+        cameraContainer.transform.LookAt(target);
+        cameraContainer.transform.position = newPos;
     }
     private float CheckBounds(float coord, float bound, float pos, float offset)
     {

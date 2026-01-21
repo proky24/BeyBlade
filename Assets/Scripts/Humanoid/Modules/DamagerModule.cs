@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class DamagerModule : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class DamagerModule : MonoBehaviour
     private float damage = 10f;
     [SerializeField]
     private float strength = 15f;
+    public event Action OnHit;
     private void Start()
     {
         movement = GetComponent<IMovement>();
@@ -30,6 +32,8 @@ public class DamagerModule : MonoBehaviour
 
             rb.AddForce(-direction * strength);
             otherRb.AddForce(direction * strength);
+
+            OnHit?.Invoke();
         }
     }
 }
