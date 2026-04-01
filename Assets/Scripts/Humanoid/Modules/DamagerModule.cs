@@ -15,10 +15,12 @@ public class DamagerModule : MonoBehaviour
         movement = GetComponent<IMovement>();
         rb = GetComponent<Rigidbody>();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         if (movement.SpinMode == SpinMode.NotSpinning)
             return;
+
+        var other = collision.gameObject;
 
         if (other.TryGetComponent<IDamageable>(out var dmg))
         {
@@ -27,11 +29,11 @@ public class DamagerModule : MonoBehaviour
 
             Vector3 direction = (other.transform.position - transform.position).normalized;
 
-            rb.linearVelocity = Vector3.zero;
-            otherRb.linearVelocity = Vector3.zero;
+            rb.linearVelocity *= 0.3f;
+            otherRb.linearVelocity *= 0.3f;
 
-            rb.AddForce(-direction * strength);
-            otherRb.AddForce(direction * strength);
+            rb.AddForce(-direction * strength, ForceMode.Impulse);
+            otherRb.AddForce(direction * strength, ForceMode.Impulse);
 
             OnHit?.Invoke();
         }
