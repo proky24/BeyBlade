@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamagerModule
   damage: 10
-  strength: 40
+  strength: 10.5
 --- !u!114 &7563914934302156471
 MonoBehaviour:
   m_ObjectHideFlags: 0
