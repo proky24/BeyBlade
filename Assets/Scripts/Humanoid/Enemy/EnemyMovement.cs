@@ -58,4 +58,8 @@ public class EnemyMovement : MonoBehaviour, IMovement
     {
         rb.linearVelocity = positionToMoveTowards * movementSpeed;
     }
+    public void SetTarget(GameObject target)
+    {
+        this.target = target;
+    }
 }
