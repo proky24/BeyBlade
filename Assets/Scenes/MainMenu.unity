@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003eb1d1db5e2e24db8649a1e98155ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  gameSceneName: SampleScene
+  gameSceneName: Game
   shopSceneName: Shop
 --- !u!114 &519143678
 MonoBehaviour:

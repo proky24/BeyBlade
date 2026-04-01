@@ -9,11 +9,13 @@ public class UIManager : MonoBehaviour
     private string shopSceneName;
     public void PlayGame()
     {
-        SceneManager.LoadScene(gameSceneName);
+        LoadSceneStatic.SceneName = gameSceneName;
+        SceneManager.LoadScene("LoadingScreen");
     }
     public void GoToShop()
     {
-        SceneManager.LoadScene(shopSceneName);
+        LoadSceneStatic.SceneName = shopSceneName;
+        SceneManager.LoadScene("LoadingScreen");
     }
     public void Exit()
     {
