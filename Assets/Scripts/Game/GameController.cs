@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     private Transform playerSpawnpoint;
     [SerializeField]
     private Transform enemySpawnpoint;
+    [SerializeField]
+    private RatingManager ratingManager;
     [Header("Camera")]
     [SerializeField]
     private ScreenShaker screenShaker;
@@ -19,6 +21,8 @@ public class GameController : MonoBehaviour
     private CameraMovement cameraMovement;
     private GameObject player;
     private GameObject enemy;
+    private bool playerWon = false;
+    public bool PlayerWon { get { return playerWon; } }
     private void Start()
     {
         StartGame();
@@ -29,6 +33,8 @@ public class GameController : MonoBehaviour
     }
     private void SpawnBeyblades()
     {
+        ratingManager.HideRatings();
+        playerWon = false;
         player = Instantiate(playerPrefab, playerSpawnpoint.position, Quaternion.identity);
         cameraMovement.Target = player.transform;
         enemy = Instantiate(enemyPrefabs[GetRandomEnemy()], enemySpawnpoint.position, Quaternion.identity);
@@ -38,6 +44,7 @@ public class GameController : MonoBehaviour
         player.GetComponent<HealthModule>().onDeath += OnPlayerDeath;
         enemy.GetComponent<HealthModule>().onDeath += OnEnemyDeath;
         enemy.GetComponent<EnemyMovement>().SetTarget(player);
+        ratingManager.StartTimer();
     }
     private int GetRandomEnemy()
     {
@@ -53,15 +60,16 @@ public class GameController : MonoBehaviour
     {
         enemy.GetComponent<HealthModule>().onDeath -= OnEnemyDeath;
         screenShaker.RemoveOnHit(enemy.GetComponent<DamagerModule>());
+        playerWon = true;
         StartCoroutine(WhoWon("Player"));
     }
     private IEnumerator WhoWon(string name)
     {
         Debug.Log($"{name} wins!!!");
-        yield return new WaitForSeconds(5f);
+        ratingManager.StopTimer();
+        yield return new WaitForSeconds(3f);
+        ratingManager.ShowRatings();
         KillBeyblades();
-        LoadSceneStatic.SceneName = "MainMenu";
-        SceneManager.LoadScene("LoadingScreen");
     }
     private void KillBeyblades()
     {

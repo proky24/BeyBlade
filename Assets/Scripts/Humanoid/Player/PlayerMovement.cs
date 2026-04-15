@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 public enum SpinMode
 {
@@ -57,11 +58,11 @@ public class PlayerMovement : MonoBehaviour, IMovement
             body.transform.Rotate(Vector3.up, rotationSpeed * (duration - elapsed) * Time.deltaTime, Space.Self);
             elapsed += Time.deltaTime;
             MoveTowards(direction);
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         spinMode = SpinMode.NotSpinning;
-        yield return null;
+        yield return new WaitForFixedUpdate();
     }
     private void MoveTowards(Vector3 positionToMoveTowards)
     {
