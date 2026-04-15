@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private string gameSceneName;
+    private string gameSceneName = "Game";
     [SerializeField]
-    private string shopSceneName;
+    private string shopSceneName = "Shop";
+    [SerializeField]
+    private string mainMenuSceneName = "MainMenu";
     public void PlayGame()
     {
         LoadSceneStatic.SceneName = gameSceneName;
@@ -15,6 +17,11 @@ public class UIManager : MonoBehaviour
     public void GoToShop()
     {
         LoadSceneStatic.SceneName = shopSceneName;
+        SceneManager.LoadScene("LoadingScreen");
+    }
+    public void GoToMainMenu()
+    {
+        LoadSceneStatic.SceneName = mainMenuSceneName;
         SceneManager.LoadScene("LoadingScreen");
     }
     public void Exit()
