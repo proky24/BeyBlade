@@ -327,6 +327,8 @@ MonoBehaviour:
   - {fileID: 1919570198235217182, guid: c5b9366ef00305d438a95820ac4f9cb4, type: 3}
   playerSpawnpoint: {fileID: 668558039}
   enemySpawnpoint: {fileID: 1047221931}
+  screenShaker: {fileID: 600525670}
+  cameraMovement: {fileID: 7405692}
 --- !u!4 &418699186
 Transform:
   m_ObjectHideFlags: 0
@@ -426,9 +428,6 @@ MonoBehaviour:
   strength: 0.64
   cameraContainer: {fileID: 511857741}
   interval: 0.05
-  onHits:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &600525671
 MonoBehaviour:
   m_ObjectHideFlags: 0

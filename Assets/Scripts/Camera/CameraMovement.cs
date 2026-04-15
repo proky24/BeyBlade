@@ -9,6 +9,7 @@ public class CameraMovement : MonoBehaviour
     private Vector3 offset;
     private Vector3 size;
     private Vector3 newPos;
+    public Transform Target { get { return target; } set { target = value; } }
     private void Start()
     {
         size = transform.localScale;

@@ -13,12 +13,13 @@ public class ScreenShaker : MonoBehaviour
     private Transform cameraContainer;
     [SerializeField]
     private float interval = 0.1f;
-    [SerializeField]
-    private DamagerModule[] onHits;
-    private void Start()
+    public void AddOnHit(DamagerModule dm)
     {
-        onHits[0].OnHit += StartCor;
-        onHits[1].OnHit += StartCor;
+        dm.OnHit += StartCor;
+    }
+    public void RemoveOnHit(DamagerModule dm)
+    {
+        dm.OnHit -= StartCor;
     }
     private void StartCor()
     {
